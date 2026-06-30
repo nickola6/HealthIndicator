@@ -25,7 +25,10 @@ public class Health : MonoBehaviour
         if (_isDead)
             return;
 
-        CurrentValue = Mathf.Max(MinValue, CurrentValue - damage);
+        if (damage < 0)
+            throw new ArgumentOutOfRangeException(nameof(damage));
+
+        CurrentValue = Mathf.Clamp(CurrentValue - damage, MinValue, _maxValue);
         ValueChanged?.Invoke(CurrentValue);
 
         if (CurrentValue == MinValue)
@@ -40,7 +43,10 @@ public class Health : MonoBehaviour
         if (_isDead)
             return;
 
-        CurrentValue = Mathf.Min(_maxValue, CurrentValue + value);
+        if (value < 0)
+            throw new ArgumentOutOfRangeException(nameof(value));
+
+        CurrentValue = Mathf.Clamp(CurrentValue + value, MinValue, _maxValue);
         ValueChanged?.Invoke(CurrentValue);
     }
 }
