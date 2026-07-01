@@ -1,23 +1,10 @@
 using UnityEngine;
-using UnityEngine.UI;
 
-public class Healer : MonoBehaviour
+public class Healer : ButtonAction
 {
-    [SerializeField] private Button _healButton;
-    [SerializeField] private Health _health;
     [SerializeField] private float _healValue = 10f;
 
-    private void OnEnable()
-    {
-        _healButton.onClick.AddListener(Heal);
-    }
-
-    private void OnDisable()
-    {
-        _healButton.onClick.RemoveListener(Heal);
-    }
-
-    private void Heal()
+    protected override void PerformAction()
     {
         _health.Heal(_healValue);
     }

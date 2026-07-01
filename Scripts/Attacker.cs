@@ -1,23 +1,10 @@
 using UnityEngine;
-using UnityEngine.UI;
 
-public class Attacker : MonoBehaviour
+public class Attacker : ButtonAction
 {
-    [SerializeField] private Button _damageButton;
-    [SerializeField] private Health _health;
     [SerializeField] private float _damage = 15f;
 
-    private void OnEnable()
-    {
-        _damageButton.onClick.AddListener(Attack);
-    }
-
-    private void OnDisable()
-    {
-        _damageButton.onClick.RemoveListener(Attack);
-    }
-
-    private void Attack()
+    protected override void PerformAction()
     {
         _health.TakeDamage(_damage);
     }
